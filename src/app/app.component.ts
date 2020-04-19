@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
 import {
-  trigger,
+  animate,
   state,
   style,
-  animate,
   transition,
+  trigger,
 } from "@angular/animations";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
 import { MatSelect } from "@angular/material/select";
-import { BrowserStack } from "protractor/built/driverProviders";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { environment } from "src/environments/environment";
 
 export interface Student {
   name: string;
@@ -88,9 +88,10 @@ export class AppComponent implements OnInit {
   ];
   title = "angular-material-demo";
   displayedColumns: string[] = ["name", "age", "gender", "subject"];
-  //dataSource = DATA_ARRAY;
+  // dataSource = DATA_ARRAY;
   dataSource = new MatTableDataSource<Student>(DATA_ARRAY);
   expandedElement: Student | null;
+  backgroundColor: string = environment.backgroundColor;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -106,8 +107,8 @@ export class AppComponent implements OnInit {
       data: Student,
       filter: string
     ): boolean => {
-      let truth: boolean = true;
-      let truthTable = [
+      let truth = true;
+      const truthTable = [
         {
           id: "name",
           truth: true,
@@ -139,13 +140,15 @@ export class AppComponent implements OnInit {
                 this.genderFilter.value.trim().toLowerCase();
               break;
             case "age":
-              if (this.ageFilter2.value == ">") {
+              if (this.ageFilter2.value === ">") {
                 truthTable[i].truth = data.age > this.ageFilter1.value;
               } else if (this.ageFilter2.value == "<") {
                 truthTable[i].truth = data.age < this.ageFilter1.value;
               } else if (this.ageFilter2.value == "=") {
                 truthTable[i].truth = data.age == this.ageFilter1.value;
-              } else true;
+              } else {
+                true;
+              }
 
               break;
             default:
@@ -159,11 +162,11 @@ export class AppComponent implements OnInit {
       });
 
       console.log(truth);
-      //console.log(data);
-      //console.log(filter);
+      // console.log(data);
+      // console.log(filter);
 
-      //console.log(this.nameFilter);
-      //console.log(this.genderFilter.value);
+      // console.log(this.nameFilter);
+      // console.log(this.genderFilter.value);
       // if (!!this.nameFilter.nativeElement.value) {
       //   truth =
       //     data.name

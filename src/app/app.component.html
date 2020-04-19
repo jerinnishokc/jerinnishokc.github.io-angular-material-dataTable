@@ -1,5 +1,6 @@
 <p>Hello</p>
-
+<app-use-progress-spinner-component></app-use-progress-spinner-component>
+<hr />
 <button mat-raised-button color="primary">Click</button>
 <button mat-raised-button color="accent">Click</button>
 <button mat-raised-button color="warn">Click</button>
@@ -79,3 +80,5 @@
   [pageSizeOptions]="[2, 4, 5]"
   showFirstLastButtons
 ></mat-paginator>
+
+<p [style.backgroundColor]="backgroundColor">A title {{ title }}</p>
